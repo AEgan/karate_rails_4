@@ -27,13 +27,49 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
+gem 'will_paginate'
+gem 'validates_timeliness'
+# Use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '~> 3.1.2'
+
+# Gems used only in testing
+group :test do
+	gem 'shoulda'
+	gem 'shoulda-matchers'
+	gem 'factory_girl_rails'
+	gem 'mocha'
+	gem 'cucumber-rails', :require => false
+	gem 'gherkin'
+	gem 'capybara'
+	gem 'database_cleaner'
+	gem 'launchy'
+	gem 'email_spec'
+	gem 'nokogiri'
+	gem 'simplecov'
+	gem 'tconsole'
+end
+
+# Gems used only in development
+group :development do
+  gem 'quiet_assets'
+  gem 'thin'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
+  gem 'wirble'
+  gem 'hirb'
+  gem 'populator3'
+  gem 'faker'
+end
+
+group :assets do
+	gem 'jquery-ui-rails'
+end
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
 # gem 'unicorn'
