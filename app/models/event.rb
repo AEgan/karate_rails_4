@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
 	validates_inclusion_of :active, in: [true, false], message: "Must be true or false"
 
 	# scopes
-	scope :alphabetical, order('name')
-	scope :active, where('active = ?', true)
-	scope :active, where('active = ?', false)
+	scope :alphabetical, -> { order('name') }
+	scope :active, -> { where('active = ?', true) }
+	scope :inactive, -> { where('active = ?', false) }
 end
