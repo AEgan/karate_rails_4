@@ -37,7 +37,7 @@ class Student < ActiveRecord::Base
 
 	# is this student over 18?
 	def over_18?
-		self.date_of_birth >= Date.today - 18.years
+		self.date_of_birth <= Date.today - 18.years
 	end
 
 	# Returns the student's age

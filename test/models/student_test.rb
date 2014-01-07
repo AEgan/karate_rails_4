@@ -183,5 +183,76 @@ class StudentTest < ActiveSupport::TestCase
    		assert_equal [@mike.first_name, @alex.first_name, @matt.first_name, @john.first_name, @ryan.first_name], ranked_results.map { |student| student.first_name }
    	end
 
+   	# methods
+   	# name
+   	should "have a method to get a student's name in last, first format" do
+   		# using #{@student.attr} instead of "Last Name" and "First Name" so if you change the factories the tests still work 
+   		assert_equal "#{@alex.last_name}, #{@alex.first_name}", @alex.name
+   		assert_equal "#{@ryan.last_name}, #{@ryan.first_name}", @ryan.name
+   		assert_equal "#{@matt.last_name}, #{@matt.first_name}", @matt.name
+   		assert_equal "#{@john.last_name}, #{@john.first_name}", @john.name
+   		assert_equal "#{@mike.last_name}, #{@mike.first_name}", @mike.name
+   	end
+
+   	# proper name
+   	should "have a method to get a student's name in first last format" do
+   		# using #{@student.attr} instead of "Last Name" and "First Name" so if you change the factories the tests still work 
+   		assert_equal "#{@alex.first_name} #{@alex.last_name}", @alex.proper_name
+   		assert_equal "#{@ryan.first_name} #{@ryan.last_name}", @ryan.proper_name
+   		assert_equal "#{@matt.first_name} #{@matt.last_name}", @matt.proper_name
+   		assert_equal "#{@john.first_name} #{@john.last_name}", @john.proper_name
+   		assert_equal "#{@mike.first_name} #{@mike.last_name}", @mike.proper_name
+   	end
+
+   	# age
+   	should "have a method that returns a student's age" do
+   		# not doing the same thing with names here because I'm lazy
+   		assert_equal 21, @alex.age
+   		assert_equal 22, @ryan.age
+   		assert_equal 17, @mike.age
+   		assert_equal 6,  @matt.age
+   		assert_equal 9,  @john.age
+   	end
+
+   	# over_18
+   	should "have a method that determines if a student is 18 or over" do
+   		assert @alex.over_18?
+   		assert @ryan.over_18?
+   		deny   @mike.over_18?
+   		deny   @matt.over_18?
+   		deny   @john.over_18?
+   	end
+
+   	# ages between
+   	should "have a method that returns students is in a given age range" do
+   		ages_result1 = Student.ages_between(18, 22)
+   		assert_equal 2, ages_result1.size
+   		assert ages_result1.include?(@alex)
+   		assert ages_result1.include?(@ryan)
+   		deny ages_result1.include?(@matt)
+   		deny ages_result1.include?(@mike)
+   		deny ages_result1.include?(@john)
+   		ages_result2 = Student.ages_between(5, 12)
+   		assert_equal 2, ages_result2.size
+   		assert ages_result2.include?(@matt)
+   		assert ages_result2.include?(@john)
+   		deny ages_result2.include?(@alex)
+   		deny ages_result2.include?(@ryan)
+   		deny ages_result2.include?(@mike)
+   	end
+
+   	# ranks between
+   	should "have a method that returns students in a given rank range" do
+   		rank_result1 = Student.ranks_between(1, 5)
+   		assert_equal 3, rank_result1.size
+   		assert rank_result1.include?(@ryan)
+   		assert rank_result1.include?(@john)
+   		assert rank_result1.include?(@matt)
+   		deny rank_result1.include?(@alex)
+   		deny rank_result1.include?(@mike)
+   		rank_result2 = Student.ranks_between(7, 11)
+   		assert_equal [@alex], rank_result2
+   	end
+
   end
 end
