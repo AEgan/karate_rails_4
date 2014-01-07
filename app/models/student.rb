@@ -8,22 +8,20 @@ class Student < ActiveRecord::Base
 	validates_presence_of :first_name, :last_name, :date_of_birth
 	validates_numericality_of :rank, only_integer: true, greater_than_or_equal_to: 1, allow_blank: false
 	validates_date :date_of_birth, on_or_before: 5.years.ago.to_date
-	validates_format_of :phone, allow_blank: true, with: /^(\d{10}|\(?\d{3}\)?[-. ]\d{3}[-.]\d{4})$/, :message => "should be 10 digits (area code needed) and delimited with dashes only"
+	validates_format_of :phone, allow_blank: true, with: /\A(\d{10}|\(?\d{3}\)?[-. ]\d{3}[-.]\d{4})\z/, :message => "should be 10 digits (area code needed) and delimited with dashes only"
 	validates_inclusion_of :active, in: [true, false]
 
 	# scopes
-	scope :alphabetical, order('last_name, first_name')
-	scope :active, where('active = ?', true)
-	scope :inactive, where('active = ?', false)
-	scope :has_waiver, where('waiver_signed = ?', true)
-	scope :needs_waiver, where('waiver_signed = ?', false)
-	scope :dans, where('rank >= 10')
-	scope :gups, where('rank < 10')
-	scope :juniors, where('date_of_birth > ?', Date.today - 18.years)
-	scope :seniors, where('date_of_birth <= ?', Date.today - 18.years)
-	scope :by_rank, order('rank DESC')
-	scope :ranks_between, lambda {|low, high| where('rank BETWEEN ? AND ?', low, high)}
-	scope :ages_between, lambda {|low, high| where('? <= date_of_birth AND date_of_birth <= ?', (high + 1).years.ago.to_date +1.day, low.years.ago.to_date)}
+	scope :alphabetical, -> { order('last_name, first_name') }
+	scope :active, -> { where('active = ?', true) }
+	scope :inactive, -> { where('active = ?', false) }
+	scope :has_waiver, -> { where('waiver_signed = ?', true) }
+	scope :needs_waiver, -> { where('waiver_signed = ?', false) }
+	scope :dans, -> { where('rank >= 10') }
+	scope :gups, -> { where('rank < 10') }
+	scope :juniors, -> { where('date_of_birth > ?', Date.today - 18.years) }
+	scope :seniors, -> { where('date_of_birth <= ?', Date.today - 18.years) }
+	scope :by_rank, -> { order('rank DESC') }
 
 
 	# methods
@@ -51,6 +49,16 @@ class Student < ActiveRecord::Base
       year -= 1
     end
     return year
+  end
+
+  def self.ranks_between(low_rank,high_rank)
+    high_rank ||= 15
+    Student.where("rank between ? and ?", low_rank, high_rank)
+  end
+  
+  def self.ages_between(low_age,high_age)
+    high_age ||= 120
+    where("date_of_birth between ? and ?", ((high_age+1).years - 1.day).ago.to_date, low_age.years.ago.to_date)
   end
 
   private

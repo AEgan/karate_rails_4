@@ -6,9 +6,10 @@ class EventTest < ActiveSupport::TestCase
   # end
 
   # validations
+  # relatiionships will go here when available
   # name
   should validate_presence_of(:name)
-  should validate_uniqueness_of(:name)
+  should validate_uniqueness_of(:name).case_insensitive
   # active
   should allow_value(true).for(:active)
   should allow_value(false).for(:active)
