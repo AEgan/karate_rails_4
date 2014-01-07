@@ -10,17 +10,17 @@ class Section < ActiveRecord::Base
 	validates_numericality_of :event_id, only_integer: true, greater_than_or_equal_to: 1
 	validates_numericality_of :min_age, only_integer: true, greater_than_or_equal_to: 5
 	validates_numericality_of :min_rank, only_integer: true, greater_than_or_equal_to: 1
-	validates_numericality_of :max_age, allow_blank: true, only_integer: true
-	validates_numericality_of :max_rank, allow_blank: true, only_integer: true
+	validates_numericality_of :max_age, allow_blank: true, only_integer: true, greater_than_or_equal_to: :min_age
+	validates_numericality_of :max_rank, allow_blank: true, only_integer: true, greater_than_or_equal_to: :min_rank
 	validates_inclusion_of :active, in: [true, false], message: "Must be true or false"
 
 	# scopes
-	scope :for_event, -> { (eid) where('event_id = ?', eid) }
+	scope :for_event, ->(eid) { where('event_id = ?', eid) }
 	scope :active, -> { where(active: true) }
 	scope :inactive, -> { where(active: false) }
 	scope :alphabetical, -> { joins(:event).order("events.name, sections.min_rank, sections.min_age") }
-	scope :for_rank, -> { (rank) where("min_rank <= ? AND (max_rank IS NULL OR ? <= max_rank)", rank, rank) }
-	scope :for_age, -> { (age) where("min_age <= ? AND (max_age IS NULL OR ? <= max_age)", age, age) }
+	scope :for_rank, ->(rank) { where("min_rank <= ? AND (max_rank IS NULL OR ? <= max_rank)", rank, rank) }
+	scope :for_age, ->(age) { where("min_age <= ? AND (max_age IS NULL OR ? <= max_age)", age, age) }
 
 	# custom validations
 	private

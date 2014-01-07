@@ -6,7 +6,8 @@ class EventTest < ActiveSupport::TestCase
   # end
 
   # validations
-  # relatiionships will go here when available
+  # relatiionships
+  should have_many(:sections)
   # name
   should validate_presence_of(:name)
   should validate_uniqueness_of(:name).case_insensitive
