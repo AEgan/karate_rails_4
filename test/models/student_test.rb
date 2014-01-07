@@ -254,5 +254,64 @@ class StudentTest < ActiveSupport::TestCase
    		assert_equal [@alex], rank_result2
    	end
 
+   	# tests some validations and creation callbacks
+   	# reformatted phone
+   	should "reformat phone when a new student is created to only include the numbers" do
+   		phone_factory1 = FactoryGirl.create(:student, first_name: "Phone", last_name: "Factory", date_of_birth: 15.years.ago.to_date, phone: "555-555-5555")
+   		assert_equal "5555555555", phone_factory1.phone
+   		phone_factory1.destroy
+   		phone_factory2 = FactoryGirl.create(:student, first_name: "Phone", last_name: "Factory", date_of_birth: 10.years.ago.to_date, phone: "555.555.5555")
+   		assert_equal "5555555555", phone_factory2.phone
+   		phone_factory2.destroy
+   		phone_factory3 = FactoryGirl.create(:student, first_name: "Phone", last_name: "Factory", date_of_birth: 10.years.ago.to_date, phone: "(555) 555-5555")
+   		assert_equal "5555555555", phone_factory3.phone
+   		phone_factory3.destroy
+   	end
+
+   	# can't create a student less than 5 years of age
+   	should "not allow a student to be created if the student is less than 5 years old" do
+   		four = FactoryGirl.build(:student, date_of_birth: 4.years.ago.to_date)
+   		deny four.valid?
+   		almost5 = FactoryGirl.build(:student, date_of_birth: 5.years.ago.to_date + 1.day)
+   		deny almost5.valid?
+   		five = FactoryGirl.build(:student, date_of_birth: 5.years.ago.to_date)
+   		assert five.valid?
+   	end
+
+   	# presence of first name
+   	should "not allow a student to be created without a first name" do
+   		blank_name = FactoryGirl.build(:student, first_name: "")
+   		deny blank_name.valid?
+   		nil_name = FactoryGirl.build(:student, first_name: nil)
+   		deny nil_name.valid?
+   		# to show the only difference is the first name...
+   		works = FactoryGirl.build(:student, first_name: "Present")
+   		assert works.valid?
+   	end
+
+   	# presence of last name
+   	should "not allow a student to be created without a last name" do
+   		blank_name = FactoryGirl.build(:student, last_name: "")
+   		deny blank_name.valid?
+   		nil_name = FactoryGirl.build(:student, last_name: nil)
+   		deny nil_name.valid?
+   		# to show the only difference is the last name...
+   		works = FactoryGirl.build(:student, first_name: "Present")
+   		assert works.valid?
+   	end
+
+   	# presence of DOB
+   	should "not allow a student to be created without a date of birth" do
+   		blank_DOB = FactoryGirl.build(:student, date_of_birth: "")
+   		deny blank_DOB.valid?
+   		nil_DOB = FactoryGirl.build(:student, date_of_birth: nil)
+   		deny nil_DOB.valid?
+   		# to show with a DOB it works, more explicit to show here instead of having to view factories.rb
+   		works = FactoryGirl.build(:student, date_of_birth: 10.years.ago.to_date)
+   		assert works.valid?
+   	end
+
+   	
+
   end
 end
