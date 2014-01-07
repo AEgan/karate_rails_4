@@ -1,4 +1,6 @@
 KarateRails4::Application.routes.draw do
+  resources :sections
+
   resources :students
 
   resources :events
