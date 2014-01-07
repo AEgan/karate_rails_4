@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
 
 	# relationships
-	# will have them here later when other models are set up
+	has_many :sections
 
 	# validations
 	validates_presence_of :name
