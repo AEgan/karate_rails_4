@@ -17,4 +17,11 @@ FactoryGirl.define do
 		active true
 	end
 
+	# section factory
+	factory :section do
+		association :event
+		min_age 5
+		min_rank 1
+		active true
+	end
 end
