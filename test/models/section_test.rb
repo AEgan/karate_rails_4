@@ -141,5 +141,115 @@ class SectionTest < ActiveSupport::TestCase
   		assert age_18_sections.include?(@high_breaking)
   		assert age_18_sections.include?(@old_forms)
   	end
+
+    # custom validations
+    # event active in system
+    should "not allow a section to be created if its associated event is not active " do
+      # let's make an inactive event here
+      inactive_event = FactoryGirl.create(:event, name: "Sparring", active: false)
+      bad_section = FactoryGirl.build(:section, min_age: 10, min_rank: 2, event: inactive_event, max_age: 12, max_rank: 4)
+      deny bad_section.valid?
+      # we're done with the event so let's destroy it
+      inactive_event.destroy
+    end
+
+    # repeat based on event, min age, and min rank
+    should "not allow a section to be a duplicate of another based on event, minimum age and minimum rank" do
+      # complete repeat of basic factory
+      full_repeat = FactoryGirl.build(:section, event: @breaking)
+      deny full_repeat.valid?
+      # repeat of specific factory
+      old_repeat = FactoryGirl.build(:section, event: @forms, min_age: 15, min_rank: 7)
+      deny old_repeat.valid?
+      # changing the minimum age should make it valid
+      dif_min_age = FactoryGirl.build(:section, event: @forms, min_age: 15, min_rank: 4)
+      assert dif_min_age.valid?
+      # changing the minimum rank should make it valid
+      dif_min_rank = FactoryGirl.build(:section, event: @forms, min_age: 14, min_rank: 7)
+      assert dif_min_rank.valid?
+    end
+
+    # other validations
+    # max rank < min rank
+    should "not allow a section to be created if the max rank is smaller than the min rank" do
+      invalid = FactoryGirl.build(:section, event: @breaking, min_age: 20, max_age: 25, min_rank: 10, max_rank: 8)
+      deny invalid.valid?
+      valid = FactoryGirl.build(:section, event: @breaking, min_age: 20, max_age: 25, min_rank: 8, max_rank: 10)
+      assert valid.valid?
+    end
+
+    # max age < min age
+    should "not allow a section to be created if the max age is smaller than the min age" do
+      invalid = FactoryGirl.build(:section, event: @breaking, min_age: 25, max_age: 20, min_rank: 8, max_rank: 10)
+      deny invalid.valid?
+      valid = FactoryGirl.build(:section, event: @breaking, min_age: 20, max_age: 25, min_rank: 8, max_rank: 10)
+      assert valid.valid?
+    end
+
+    # age >= 5 years
+    should "not allow a section to have a min age less than 5" do
+      four_years_min = FactoryGirl.build(:section, event: @breaking, min_rank: 2, min_age: 4)
+      deny four_years_min.valid?
+      four_years_max = FactoryGirl.build(:section, event: @breaking, max_age: 4, min_age: 4, min_rank: 2)
+      deny four_years_max.valid?
+    end
+
+    # rank >= 0
+    should "not allow either rank to be less than or equal to 0" do
+      min_rank_zero = FactoryGirl.build(:section, event: @forms, min_rank: 0, min_age: 9)
+      deny min_rank_zero.valid?
+      max_rank_zero = FactoryGirl.build(:section, event: @forms, max_rank: 0, min_rank: 0, min_age: 9)
+      deny max_rank_zero.valid?
+      min_rank_negative = FactoryGirl.build(:section, event: @forms, min_rank: -1, min_age: 9)
+      deny min_rank_negative.valid?
+      max_rank_negative = FactoryGirl.build(:section , event: @forms, max_rank: -1, min_age: 27)
+      deny min_rank_negative.valid?
+    end
+
+    # rank and age integers
+    should "not allow either rank or age be non integers " do
+      min_rank_bad = FactoryGirl.build(:section , event: @forms, min_rank: 1.5)
+      deny min_rank_bad.valid?
+      max_rank_bad = FactoryGirl.build(:section, event: @forms, min_rank: 1, max_rank: 4.5, min_age: 34)
+      deny max_rank_bad.valid?
+      min_age_bad = FactoryGirl.build(:section , event: @forms, min_age: 6.5)
+      deny min_age_bad.valid?
+      max_age_bad = FactoryGirl.build(:section, event: @forms, min_age: 7, max_age: 9.5)
+      deny max_age_bad.valid?
+    end
+
+    # ranks and ages can't be strings
+    should "not allow either ranks or ages be strings " do
+      min_rank_bad = FactoryGirl.build(:section , event: @forms, min_rank: "a")
+      deny min_rank_bad.valid?
+      max_rank_bad = FactoryGirl.build(:section, event: @forms, min_rank: 1, max_rank: "a", min_age: 34)
+      deny max_rank_bad.valid?
+      min_age_bad = FactoryGirl.build(:section , event: @forms, min_age: "a")
+      deny min_age_bad.valid?
+      max_age_bad = FactoryGirl.build(:section, event: @forms, min_age: 7, max_age: "a")
+      deny max_age_bad.valid?
+    end
+
+    # min age and min rank have to be present
+    should "not allow min rank or age to be blank or nil " do
+      blank_min_age = FactoryGirl.build(:section, event: @forms, min_age: "", min_rank: 17)
+      blank_min_rank = FactoryGirl.build(:section, event: @forms, min_rank: "", min_age: 8)
+      deny blank_min_rank.valid?
+      deny blank_min_age.valid?
+      nil_min_age = FactoryGirl.build(:section, event: @forms, min_age: nil, min_rank: 17)
+      nil_min_rank = FactoryGirl.build(:section, event: @forms, min_rank: nil, min_age: 8)
+      deny nil_min_rank.valid?
+      deny nil_min_age.valid?
+    end
+
+    # event id must be present
+    should "not allow event id to be blank or strings" do
+      blank_id = FactoryGirl.build(:section, event_id: "")
+      nil_id = FactoryGirl.build(:section, event_id: nil)
+      string_id = FactoryGirl.build(:section , event_id: "hi")
+      deny blank_id.valid?
+      deny nil_id.valid?
+      deny string_id.valid?
+    end
   end
 end
