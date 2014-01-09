@@ -8,6 +8,8 @@ class SectionTest < ActiveSupport::TestCase
   # validations
   # relationships
   should belong_to(:event)
+  should have_many(:registrations)
+  should have_many(:students).through(:registrations)
 
   # presence
   should validate_presence_of(:event_id)

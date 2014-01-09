@@ -2,6 +2,8 @@ class Section < ActiveRecord::Base
 
 	# relationships
 	belongs_to :event
+	has_many :registrations
+	has_many :students, through: :registrations
 
 	# validations
 	validate :unique_section

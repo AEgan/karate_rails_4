@@ -1,7 +1,10 @@
 require 'test_helper'
 
 class RegistrationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  
+  # shouldas 
+  # relationships 
+  should belong_to(:section)
+  should belong_to(:student)
+  should have_one(:event).through(:section)
 end

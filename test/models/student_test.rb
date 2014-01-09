@@ -6,7 +6,11 @@ class StudentTest < ActiveSupport::TestCase
   # end
 
   # validations
-  # relationships will go here when available
+  # relationships
+  should have_many(:registrations)
+  should have_many(:sections).through(:registrations)
+
+  # data format
   should validate_presence_of(:first_name)
   should validate_presence_of(:last_name)
   should validate_presence_of(:date_of_birth)

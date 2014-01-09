@@ -2,7 +2,8 @@ class Student < ActiveRecord::Base
 	before_save :reformat_phone
 
 	# relationships
-	# later when other stuff is here
+	has_many :registrations
+	has_many :sections, through: :registrations
 
 	# validations
 	validates_presence_of :first_name, :last_name, :date_of_birth
