@@ -24,4 +24,11 @@ FactoryGirl.define do
 		min_rank 1
 		active true
 	end
+
+	# registration factory
+	factory :registration do
+		association :section
+		association :student
+		date 1.year.ago.to_date
+	end
 end
