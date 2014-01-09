@@ -56,7 +56,7 @@ class Registration < ActiveRecord::Base
 		return true if self.student_id.nil? || self.section_id.nil?
 		student_age = self.student.age
 		min_age = self.section.min_age
-		max_age = self.student.max_age
+		max_age = self.section.max_age
 		unless min_age <= student_age && (max_age.nil? || student_age <= max_age)
 			errors.add(:section_id, " is not in the appropriate age range")
 		end
