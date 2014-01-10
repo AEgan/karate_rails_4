@@ -37,6 +37,8 @@ class RegistrationTest < ActiveSupport::TestCase
   should_not allow_value(Date.tomorrow).for(:date)
   should_not allow_value(5).for(:date)
   should_not allow_value("hi").for(:date)
+  should_not allow_value("").for(:date)
+  should_not allow_value(nil).for(:date)
 
   # tests with context
   context "creating context to test" do
@@ -138,6 +140,61 @@ class RegistrationTest < ActiveSupport::TestCase
   	should "have a scope to order registrations by event name " do
   		by_event_results = Registration.by_event_name
   		assert_equal [@breaking.id, @breaking.id, @forms.id, @forms.id, @forms.id], by_event_results.map { |r| r.section.event_id }
+  	end
+
+  	# validation checks
+  	# student active
+  	should "not allow a registration to be created if the student is not active in the system " do
+  		inactive_student = FactoryGirl.create(:student, first_name: "John", last_name: "Doe", active: false)
+  		invalid_registration = FactoryGirl.build(:registration, student: inactive_student, section: @full_forms)
+  		deny invalid_registration.valid?
+  		inactive_student.destroy
+  	end
+
+  	# section active
+  	should " not allow a registration to be created if the section is not active in the system " do
+  		inactive_section = FactoryGirl.create(:section, event: @breaking, min_age: 7, min_rank: 2, active: false)
+  		invalid_registration = FactoryGirl.build(:registration, student: @kyle, section: inactive_section)
+  		deny invalid_registration.valid?
+  		inactive_section.destroy
+  	end
+
+  	# too good
+  	should "not allow a student to register for a section if he or she has a rank too high" do
+  		good_student = FactoryGirl.create(:student, rank: 13, date_of_birth: 9.years.ago.to_date, first_name: "Too", last_name: "Good")
+  		invalid_registration = FactoryGirl.build(:registration, student: good_student, section: @low_breaking)
+  		deny invalid_registration.valid?
+  		good_student.destroy
+  	end
+
+  	# too bad
+  	should "not allow a student to register for a section if their rank is too low" do
+  		bad_student = FactoryGirl.create(:student, first_name: "Too", last_name: "Bad", date_of_birth: 19.years.ago.to_date, rank: 1)
+  		invalid_registration = FactoryGirl.build(:registration, student: bad_student, section: @high_breaking)
+  		deny invalid_registration.valid?
+  		bad_student.destroy
+  	end
+
+  	# too young
+  	should "not allow a student to register for a section if he or she is too young" do
+  		young_student = FactoryGirl.create(:student, first_name: "Too", last_name: "Young", date_of_birth: 5.years.ago.to_date, rank:12)
+  		invalid_registration = FactoryGirl.build(:registration, student: young_student, section: @high_breaking)
+  		deny invalid_registration.valid?
+  		young_student.destroy
+  	end
+
+  	# too old
+  	should "not allow a student to register for a section if he or she is too old" do
+  		old_student = FactoryGirl.create(:student, first_name: "Too", last_name: "Old", date_of_birth: 20.years.ago.to_date, rank: 1)
+  		invalid_registration = FactoryGirl.build(:registration, student: old_student, section: @low_breaking)
+  		deny invalid_registration.valid?
+  		old_student.destroy
+  	end
+
+  	# unique registration
+  	should "not allow a student to register for the same section twice" do
+  		invalid_registration = FactoryGirl.build(:registration, student: @alex, section: @high_breaking)
+  		deny invalid_registration.valid?
   	end
 
   end

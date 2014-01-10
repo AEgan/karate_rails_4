@@ -67,7 +67,8 @@ class Registration < ActiveRecord::Base
 		return true if self.student_id.nil? || self.section_id.nil?
 		possible_repeat = Registration.where(section_id: self.section_id, student_id: self.student_id)
 		unless possible_repeat.empty?
-			errors.add(:student_id, "is already registered for this section")
+			errors.add(:registration, "is already registered for this section")
+			return false
 		end
 	end
 end
