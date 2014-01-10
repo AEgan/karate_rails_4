@@ -1,4 +1,6 @@
-karate_rails_4
+Rails Practice
 ==============
 
-Redo of 272 final project to freshen up on rails
+Redoing a project with rails 4 to learn what is new and how to adjust.
+
+Alex
