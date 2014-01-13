@@ -1,7 +1,18 @@
-<ul>
-	<li>Home</li>
-	<li>Events</li>
-	<li>Sections</li>
-	<li>Students</li>
-	<li>Registrations</li>
-</ul>
+<nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">A&M Karate</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Left Nav Section -->
+    <ul class="left">
+    	<li><%= link_to "Students", students_path %></li>
+    	<li><%= link_to "Sections", sections_path %></li>
+    	<li><%= link_to "Events", events_path %></li>
+    	<li><%= link_to "Registrations", registrations_path %></li>
+    </ul>
+  </section>
+</nav>
