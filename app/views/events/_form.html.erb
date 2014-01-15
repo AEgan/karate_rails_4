@@ -13,13 +13,13 @@
 
   <div class="field">
     <%= f.label :name %><br>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :active %><br>
     <%= f.check_box :active %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, class: "button large success" %>
   </div>
 <% end %>
