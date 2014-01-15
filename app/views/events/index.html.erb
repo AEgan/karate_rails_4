@@ -1,29 +1,33 @@
-<h1>Listing events</h1>
+<div class="row">
+  <div class="small-12 large-12">
+    <h1>Listing events</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Active</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <table class="wide text-centered">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Active</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.name %></td>
-        <td><%= event.active %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @events.each do |event| %>
+          <tr>
+            <td><%= link_to "#{event.name}", event %></td>
+            <td><%= event.active ? "Yes" : "No" %></td>
+            <td><%= link_to 'Show', event, class: "button tiny" %></td>
+            <td><%= link_to 'Edit', edit_event_path(event), class: "button secondary tiny" %></td>
+            <td><%= link_to 'Destroy', event, class: "button tiny alert", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<br>
+    <br>
 
-<%= link_to 'New Event', new_event_path %>
+    <%= link_to 'New Event', new_event_path, class: 'button success' %>
+  </div>
+</div>
