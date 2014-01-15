@@ -3,6 +3,11 @@ KarateRails4::Application.routes.draw do
   get "home/search"
   get "home/about"
   get "home/privacy"
+
+  get 'index', to: 'home#index', as: :home
+  get 'search', to: 'home#search', as: :search
+  get 'about', to: 'home#about', as: :about
+  get 'privacy', to: 'home#privacy', as: :privacy
   resources :registrations
 
   resources :sections
