@@ -13,4 +13,5 @@
 </p>
 
 <%= link_to 'Edit', edit_event_path(@event), class: "button" %> |
-<%= link_to 'Back', events_path, class: "button secondary" %>
+<%= link_to 'Back', events_path, class: "button secondary" %> |
+<%= link_to 'Destroy', @event, class: "button alert", method: :delete, data: { confirm: 'Are you sure?' } %>

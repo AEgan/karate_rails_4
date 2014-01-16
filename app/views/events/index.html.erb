@@ -9,7 +9,6 @@
           <th>Active</th>
           <th></th>
           <th></th>
-          <th></th>
         </tr>
       </thead>
 
@@ -20,7 +19,6 @@
             <td><%= event.active ? "Yes" : "No" %></td>
             <td><%= link_to 'Show', event, class: "button tiny" %></td>
             <td><%= link_to 'Edit', edit_event_path(event), class: "button secondary tiny" %></td>
-            <td><%= link_to 'Destroy', event, class: "button tiny alert", method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
