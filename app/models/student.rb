@@ -14,10 +14,10 @@ class Student < ActiveRecord::Base
 
 	# scopes
 	scope :alphabetical, -> { order('last_name, first_name') }
-	scope :active, -> { where('active = ?', true) }
-	scope :inactive, -> { where('active = ?', false) }
-	scope :has_waiver, -> { where('waiver_signed = ?', true) }
-	scope :needs_waiver, -> { where('waiver_signed = ?', false) }
+	scope :active, -> { where(active: true) }
+	scope :inactive, -> { where(active: false) }
+	scope :has_waiver, -> { where(waiver_signed: true) }
+	scope :needs_waiver, -> { where(waiver_signed: false) }
 	scope :dans, -> { where('rank >= 10') }
 	scope :gups, -> { where('rank < 10') }
 	scope :juniors, -> { where('date_of_birth > ?', Date.today - 18.years) }

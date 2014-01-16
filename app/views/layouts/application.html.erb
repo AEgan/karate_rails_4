@@ -9,12 +9,12 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<%= render :partial => "partials/header" %>
+	<%= render "partials/header" %>
   
   <div class="wrapper">
     <%= yield %>
   </div>
 
-<%= render :partial => "partials/footer" %>
+<%= render "partials/footer" %>
 </body>
 </html>
