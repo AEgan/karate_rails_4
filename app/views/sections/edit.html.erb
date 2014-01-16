@@ -1,6 +1,10 @@
-<h1>Editing section</h1>
+<div class="row">
+	<div class="small 12 large 12">
+		<h1>Editing <%= "#{@section.name}" %></h1>
 
-<%= render 'form' %>
+		<%= render 'form' %>
 
-<%= link_to 'Show', @section %> |
-<%= link_to 'Back', sections_path %>
+		<%= link_to 'Show', @section %> |
+		<%= link_to 'Back', sections_path %>
+	</div>
+</div>

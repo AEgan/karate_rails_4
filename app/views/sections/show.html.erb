@@ -1,34 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="small-12 large-8 columns">
+    <p id="notice"><%= notice %></p>
+  </div>
+</div>
 
-<p>
-  <strong>Active:</strong>
-  <%= @section.active %>
-</p>
+<div class="row">
+  <div class="small-12 large-12">
+  <h1>Section Details</h1>
+    <p>
+      <strong>Active:</strong>
+      <%= @section.active %>
+    </p>
 
-<p>
-  <strong>Event:</strong>
-  <%= @section.event_id %>
-</p>
+    <p>
+      <strong>Event:</strong>
+      <%= link_to "#{@section.event.name}", event_path(@section.event) %>
+    </p>
 
-<p>
-  <strong>Max age:</strong>
-  <%= @section.max_age %>
-</p>
+    <p>
+      <strong>Ranks: </strong>
+      <%= rank_range_for(@section) %>
+    </p>
 
-<p>
-  <strong>Min age:</strong>
-  <%= @section.min_age %>
-</p>
+    <p>
+      <strong>Ages:</strong>
+      <%= age_range_for(@section) %>
+    </p>
 
-<p>
-  <strong>Max rank:</strong>
-  <%= @section.max_rank %>
-</p>
+  </div>
+    <%= link_to 'Edit', edit_section_path(@section) %> |
+    <%= link_to 'Back', sections_path %> | 
+    <%= link_to 'Destroy', @section, method: :delete, data: { confirm: 'Are you sure?' } %>
 
-<p>
-  <strong>Min rank:</strong>
-  <%= @section.min_rank %>
-</p>
+  <div class="small-12 large-4 columns">
+  <h2>Registered Students</h2>
+  </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
-<%= link_to 'Back', sections_path %>

@@ -1,37 +1,35 @@
-<h1>Listing sections</h1>
+<div class="row">
+  <div class="small-12 large-12 columns">
+    <h1>Listing sections</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Active</th>
-      <th>Event</th>
-      <th>Max age</th>
-      <th>Min age</th>
-      <th>Max rank</th>
-      <th>Min rank</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+    <table class="wide text-centered">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Age range</th>
+          <th>Rank range</th>
+          <th>Active ?</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @sections.each do |section| %>
-      <tr>
-        <td><%= section.active %></td>
-        <td><%= section.event_id %></td>
-        <td><%= section.max_age %></td>
-        <td><%= section.min_age %></td>
-        <td><%= section.max_rank %></td>
-        <td><%= section.min_rank %></td>
-        <td><%= link_to 'Show', section %></td>
-        <td><%= link_to 'Edit', edit_section_path(section) %></td>
-        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @sections.each do |section| %>
+          <tr>
+            <td><%= section.event.name %></td>
+            <td><%= age_range_for(section) %></td>
+            <td><%= rank_range_for(section) %></td>
+            <td><%= section.active ? "Yes" : "No" %></td>
+            <td><%= link_to 'Show', section %></td>
+            <td><%= link_to 'Edit', edit_section_path(section) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 
-<br>
+    <br>
 
-<%= link_to 'New Section', new_section_path %>
+    <%= link_to 'New Section', new_section_path %>
+  </div>
+</div>

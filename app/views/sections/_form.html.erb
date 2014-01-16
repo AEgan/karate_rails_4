@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :event_id %><br>
-    <%= f.number_field :event_id %>
+    <%= f.collection_select :event_id, Event.all, :id, :name, prompt: "Select..." %>
   </div>
   <div class="field">
     <%= f.label :max_age %><br>

@@ -1,17 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="small-12 large-12">
+		<p id="notice"><%= notice %></p>
 
-<h1><%= @event.name %></h1>
+		<h1><%= "#{@event.name} Details" %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @event.name %>
-</p>
+		<p>
+		  <strong>Name:</strong>
+		  <%= @event.name %>
+		</p>
 
-<p>
-  <strong>Active? </strong>
-  <%= @event.active ? "Yes" : "No" %>
-</p>
+		<p>
+		  <strong>Active? </strong>
+		  <%= @event.active ? "Yes" : "No" %>
+		</p>
 
-<%= link_to 'Edit', edit_event_path(@event), class: "button" %> |
-<%= link_to 'Back', events_path, class: "button secondary" %> |
-<%= link_to 'Destroy', @event, class: "button alert", method: :delete, data: { confirm: 'Are you sure?' } %>
+		<%= link_to 'Edit', edit_event_path(@event), class: "button" %> |
+		<%= link_to 'Back', events_path, class: "button secondary" %> |
+		<%= link_to 'Destroy', @event, class: "button alert", method: :delete, data: { confirm: 'Are you sure?' } %>
+	</div>
+</div>
