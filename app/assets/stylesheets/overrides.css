@@ -31,3 +31,15 @@ tbody a:visited {
 a.success {
 	background-color: #5cb85c;
 }
+
+#section_min_rank {
+	width: 50%;
+}
+
+#section_max_rank {
+	width: 50%;
+}
+
+#section_event_id {
+	width: 50%;
+}

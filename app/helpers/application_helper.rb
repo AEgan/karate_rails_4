@@ -51,4 +51,13 @@ module ApplicationHelper
 			"#{section.min_age} years old to #{section.max_age} years old"
 		end
 	end
+
+	# gets a rank list for section form. If it's max it allows for no max rank
+	def get_rank_list(specifier)
+		if(specifier == 'max')
+			[['Tenth Gup', 1],['Ninth Gup', 2],['Eighth Gup', 3], ['Seventh Gup', 4],['Sixth Gup', 5],['Fifth Gup', 6], ['Fourth Gup', 7],['Third Gup', 8],['Second Gup', 9], ['First Gup', 10],['First Dan', 11],['Second Dan', 12], ['Third Dan', 13],['Fourth Dan', 14],['Senior Master', 15], ['none', nil]]
+		else
+			[['Tenth Gup', 1],['Ninth Gup', 2],['Eighth Gup', 3], ['Seventh Gup', 4],['Sixth Gup', 5],['Fifth Gup', 6], ['Fourth Gup', 7],['Third Gup', 8],['Second Gup', 9], ['First Gup', 10],['First Dan', 11],['Second Dan', 12], ['Third Dan', 13],['Fourth Dan', 14],['Senior Master', 15]]
+		end
+	end
 end

@@ -12,30 +12,30 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :active %><br>
-    <%= f.check_box :active %>
-  </div>
-  <div class="field">
     <%= f.label :event_id %><br>
-    <%= f.collection_select :event_id, Event.all, :id, :name, prompt: "Select..." %>
-  </div>
-  <div class="field">
-    <%= f.label :max_age %><br>
-    <%= f.number_field :max_age %>
+    <%= f.collection_select :event_id, Event.all, :id, :name, prompt: "Select...", style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :min_age %><br>
-    <%= f.number_field :min_age %>
+    <%= f.number_field :min_age, style: 'width: 50%;' %>
   </div>
   <div class="field">
-    <%= f.label :max_rank %><br>
-    <%= f.number_field :max_rank %>
+    <%= f.label :max_age %><br>
+    <%= f.number_field :max_age, style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :min_rank %><br>
-    <%= f.number_field :min_rank %>
+    <%= f.select(:min_rank, get_rank_list('min'), :prompt => "Please Select") %>
+  </div>
+  <div class="field">
+    <%= f.label :max_rank %><br>
+    <%= f.select(:max_rank, get_rank_list('max'), :prompt => "Please Select") %>
+  </div>
+  <div class="field">
+    <%= f.label :active %><br>
+    <%= f.check_box :active %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, class: "button large success" %>
   </div>
 <% end %>
