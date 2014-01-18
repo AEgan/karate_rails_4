@@ -36,4 +36,5 @@
 </p>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %>
+<%= link_to 'Back', students_path %> | 
+<%= link_to 'Destroy', @student, method: :delete, data: { confirm: 'Are you sure?' } %>
