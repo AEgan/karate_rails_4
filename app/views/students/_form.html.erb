@@ -13,19 +13,19 @@
 
   <div class="field">
     <%= f.label :first_name %><br>
-    <%= f.text_field :first_name %>
+    <%= f.text_field :first_name, style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <%= f.text_field :last_name, style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
+    <%= f.text_field :phone, style: 'width: 50%;' %>
   </div>
   <div class="field">
     <%= f.label :rank %><br>
-    <%= f.number_field :rank %>
+    <%= f.select :rank, get_rank_list('min'), prompt: "Please Select..." %>
   </div>
   <div class="field">
     <%= f.label :waiver_signed %><br>
@@ -37,9 +37,9 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %><br>
-    <%= f.date_select :date_of_birth %>
+    <%= f.date_select :date_of_birth, end_year: Time.now.year - 100, start_year: Time.now.year - 5 %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, class: 'button success' %>
   </div>
 <% end %>

@@ -43,3 +43,7 @@ a.success {
 #section_event_id {
 	width: 50%;
 }
+
+#student_date_of_birth_1i, #student_date_of_birth_2i, #student_date_of_birth_3i, #student_rank {
+	width: 50%;
+}
