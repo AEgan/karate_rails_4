@@ -1,1 +1,29 @@
 <h1>Inactive Students</h1>
+<% if @inactive_students.empty? %>
+	<b>There are currently no inactive students in the system </b>
+<% else %>
+	<table class="wide text-centered">
+		<thead>
+			<th>Name</th>
+			<th>Date of Birth</th>
+			<th>Rank</th>
+			<th>Phone</th>
+			<th>Waiver Signed</th>
+			<th></th>
+			<th></th>
+		</thead>
+		<tbody>
+			<% @inactive_students.each do |student| %>
+				<tr>
+					<td><%= student.name %></td>
+					<td><%= format_date(student.date_of_birth) %></td>
+					<td><%= rank_name(student.rank) %></td>
+					<td><%= format_phone(student.phone) %></td>
+					<td><%= student.waiver_signed ? "Yes" : "No" %></td>
+					<td><%= link_to 'Show', student, class: "button tiny" %></td>
+	            	<td><%= link_to 'Edit', edit_student_path(student), class: "button secondary tiny" %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>

@@ -60,4 +60,14 @@ module ApplicationHelper
 			[['Tenth Gup', 1],['Ninth Gup', 2],['Eighth Gup', 3], ['Seventh Gup', 4],['Sixth Gup', 5],['Fifth Gup', 6], ['Fourth Gup', 7],['Third Gup', 8],['Second Gup', 9], ['First Gup', 10],['First Dan', 11],['Second Dan', 12], ['Third Dan', 13],['Fourth Dan', 14],['Senior Master', 15]]
 		end
 	end
+
+	# formats a phone number to (XXX) XXX-XXXX
+	def format_phone(phone)
+		"(" + phone[0..2] + ") " + phone[3..5] + "-" + phone[6..9]+""
+	end
+
+	# formats date
+	def format_date(date)
+		"#{date.month}-#{date.day}-#{date.year}"
+	end
 end

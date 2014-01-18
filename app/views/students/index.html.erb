@@ -1,34 +1,37 @@
 <div class="row">
   <div class="small-12 large-8 columns">
     <h1>Active Students</h1>
-
-    <table class="wide text-centered">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Date of birth</th>
-          <th>Rank</th>
-          <th>Phone</th>
-          <th>Waiver signed?</th>
-          <th></th>
-          <th></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @students.each do |student| %>
+    <% if @active_students.empty? %>
+      <b>There are currently no active students in the system</b>
+    <% else %>
+      <table class="wide text-centered">
+        <thead>
           <tr>
-            <td><%= student.name %></td>
-            <td><%= student.date_of_birth %></td>
-            <td><%= student.rank %></td>
-            <td><%= student.phone %></td>
-            <td><%= student.waiver_signed ? "Yes" : "No" %></td>
-            <td><%= link_to 'Show', student, class: "button tiny" %></td>
-            <td><%= link_to 'Edit', edit_student_path(student), class: "button secondary tiny" %></td>
+            <th>Name</th>
+            <th>Date of birth</th>
+            <th>Rank</th>
+            <th>Phone</th>
+            <th>Waiver signed?</th>
+            <th></th>
+            <th></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+
+        <tbody>
+          <% @active_students.each do |student| %>
+            <tr>
+              <td><%= student.name %></td>
+              <td><%= format_date(student.date_of_birth) %></td>
+              <td><%= rank_name(student.rank) %></td>
+              <td><%= format_phone(student.phone) %></td>
+              <td><%= student.waiver_signed ? "Yes" : "No" %></td>
+              <td><%= link_to 'Show', student, class: "button tiny" %></td>
+              <td><%= link_to 'Edit', edit_student_path(student), class: "button secondary tiny" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
   </div>
   <div class="small-12 large-4">
     <%= render 'inactive_students' %>
