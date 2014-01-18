@@ -1,40 +1,42 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="small-12 large-8 columns">
+    <h1><%= @student.proper_name %></h1>
+    <p>
+      <strong>Name:</strong>
+      <%= @student.proper_name %>
+    </p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @student.first_name %>
-</p>
+    <p>
+      <strong>Phone Number:</strong>
+      <%= format_phone(@student.phone) %>
+    </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @student.last_name %>
-</p>
+    <p>
+      <strong>Rank:</strong>
+      <%= rank_name(@student.rank) %>
+    </p>
 
-<p>
-  <strong>Phone:</strong>
-  <%= @student.phone %>
-</p>
+    <p>
+      <strong>Waiver signed?</strong>
+      <%= @student.waiver_signed ? "Yes" : "No" %>
+    </p>
 
-<p>
-  <strong>Rank:</strong>
-  <%= @student.rank %>
-</p>
+    <p>
+      <strong>Active?</strong>
+      <%= @student.active ? "Yes" : "No"%>
+    </p>
 
-<p>
-  <strong>Waiver signed:</strong>
-  <%= @student.waiver_signed %>
-</p>
+    <p>
+      <strong>Date of birth:</strong>
+      <%= format_date(@student.date_of_birth) %>
+    </p>
+  </div>
+  <div class="small-12 large-4 columns">
+    <%= render 'sections_for_student' %>
+  </div>
+</div>
 
-<p>
-  <strong>Active:</strong>
-  <%= @student.active %>
-</p>
-
-<p>
-  <strong>Date of birth:</strong>
-  <%= @student.date_of_birth %>
-</p>
-
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %> | 
-<%= link_to 'Destroy', @student, method: :delete, data: { confirm: 'Are you sure?' } %>
+<%= link_to 'Edit', edit_student_path(@student), class: "button" %> |
+<%= link_to 'Back', students_path, class: "button secondary" %> | 
+<%= link_to 'Destroy', @student, class: "button alert", method: :delete, data: { confirm: 'Are you sure?' } %>

@@ -1,0 +1,21 @@
+<h2>Tournament Activity</h2>
+<% if @student_sections.empty? %>
+<b><%= @student.first_name + " is not registered for any sections at this time"%></b>
+<% else %>
+	<table class="wide text-centered">
+		<thead>
+			<th>Event</th>
+			<th>Age(s)</th>
+			<th>Rank(s)</th>
+		</thead>
+		<tbody>
+			<% @student_sections.each do |registration| %>
+				<tr>
+					<td><%= link_to "#{registration.section.event.name}", section_path(registration.section) %></td>
+					<td><%= age_range_for(registration.section) %></td>
+					<td><%= rank_range_for(registration.section) %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
