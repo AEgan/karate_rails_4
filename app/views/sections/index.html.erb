@@ -8,7 +8,7 @@
           <th>Event</th>
           <th>Age range</th>
           <th>Rank range</th>
-          <th>Active ?</th>
+          <th>Active?</th>
           <th></th>
           <th></th>
         </tr>
@@ -21,8 +21,8 @@
             <td><%= age_range_for(section) %></td>
             <td><%= rank_range_for(section) %></td>
             <td><%= section.active ? "Yes" : "No" %></td>
-            <td><%= link_to 'Show', section %></td>
-            <td><%= link_to 'Edit', edit_section_path(section) %></td>
+            <td><%= link_to 'Show', section, class: "button tiny" %></td>
+            <td><%= link_to 'Edit', edit_section_path(section), class: "button secondary tiny" %></td>
           </tr>
         <% end %>
       </tbody>
@@ -30,6 +30,6 @@
 
     <br>
 
-    <%= link_to 'New Section', new_section_path %>
+    <%= link_to 'New Section', new_section_path, class: "button success" %>
   </div>
 </div>

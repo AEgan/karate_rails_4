@@ -1,10 +1,10 @@
 <div class="row">
 	<div class="small 12 large 12">
-		<h1>Editing <%= "#{@section.name}" %></h1>
+		<h1>Editing <%= "#{@section.event.name}" %> Section</h1>
 
 		<%= render 'form' %>
 
-		<%= link_to 'Show', @section %> |
-		<%= link_to 'Back', sections_path %>
+		<%= link_to 'Show', @section, class: "button" %> |
+		<%= link_to 'Back', sections_path, class: "button secondary" %>
 	</div>
 </div>
