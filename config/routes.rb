@@ -17,6 +17,7 @@ KarateRails4::Application.routes.draw do
   resources :events
 
   get 'deactivate_student' =>  'students#deactivate', as: :deactivate_student
+  get 'activate_student' =>  'students#activate', as: :activate_student
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

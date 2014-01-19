@@ -28,7 +28,7 @@
               <td><%= student.waiver_signed ? "Yes" : "No" %></td>
               <td><%= link_to 'Show', student, class: "button tiny" %></td>
               <td><%= link_to 'Edit', edit_student_path(student), class: "button secondary tiny" %></td>
-              <td><%= link_to 'Deactivate', deactivate_student_path(id: student.id), class: "button secondary tiny" %></td>
+              <td><%= link_to 'Deactivate', deactivate_student_path(id: student.id), class: "button warning tiny" %></td>
             </tr>
           <% end %>
         </tbody>

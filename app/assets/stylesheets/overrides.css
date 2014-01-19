@@ -32,6 +32,14 @@ a.success {
 	background-color: #5cb85c;
 }
 
+a.warning {
+	background-color: #FCFF00;
+}
+
+a.light-blue {
+	background-color: #00BFFF;
+}
+
 #section_min_rank {
 	width: 50%;
 }
