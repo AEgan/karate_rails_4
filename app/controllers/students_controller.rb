@@ -63,6 +63,13 @@ class StudentsController < ApplicationController
     end
   end
 
+  # deactivates a student
+  def deactivate
+    set_student
+    @student.update_attribute(:active, false)
+    redirect_to students_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student

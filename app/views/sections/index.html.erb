@@ -17,7 +17,7 @@
       <tbody>
         <% @sections.each do |section| %>
           <tr>
-            <td><%= section.event.name %></td>
+            <td><%= link_to "#{section.event.name}", event_path(section.event) %></td>
             <td><%= age_range_for(section) %></td>
             <td><%= rank_range_for(section) %></td>
             <td><%= section.active ? "Yes" : "No" %></td>
