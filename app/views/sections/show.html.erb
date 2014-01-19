@@ -28,14 +28,17 @@
     </p>
 
   </div>
+  <div class="small-12 large-4 columns">
+    <%= render 'registered_students' %>
+    <%= render 'quick_register' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="small-12 large-12 columns">
     <%= link_to 'Edit', edit_section_path(@section), class: "button" %> |
     <%= link_to 'Back', sections_path, class: "button secondary" %> | 
     <%= link_to 'Destroy', @section, class: "button alert", method: :delete, data: { confirm: 'Are you sure?' } %>
-
-  <div class="small-12 large-4 columns">
-  <%= render 'registered_students' %>
-  <%= render 'quick_register' %>
-  </div>
   </div>
 </div>
 
