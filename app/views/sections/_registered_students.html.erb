@@ -1,0 +1,19 @@
+<h2>Registered Students</h2>
+<% if @registrations.empty? %>
+	<b>There are currently no students registered for this section </b>
+<% else %>
+	<table class="wide text-centered">
+		<thead>
+			<th>Name</th>
+			<th>Age</th>
+			<th>Rank</th>
+		</thead>
+		<tbody>
+			<% @registrations.each do |registration| %>
+				<td><%= link_to "#{registration.student.name}", student_path(registration.student) %></td>
+				<td><%= registration.student.age %></td>
+				<td><%= rank_name(registration.student.rank) %></td>
+			<% end %>
+		</tbody>
+	</table>
+<% end %>
