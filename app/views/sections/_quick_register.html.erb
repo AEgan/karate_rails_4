@@ -1,0 +1,4 @@
+<%= form_for @registration, html: {class: "form"} do |f| %>
+	<%= f.select :student_id, eligable_students_for_section(@section), prompt: "Register a Student" %>
+	<%= f.hidden_field :section_id, :value => @section.id %>
+<% end %>

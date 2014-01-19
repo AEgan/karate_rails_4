@@ -11,6 +11,8 @@ class SectionsController < ApplicationController
   # GET /sections/1.json
   def show
     @registrations = Registration.for_section(@section.id).by_student
+    @registration = Registration.new
+    @registration.section_id = @section.id
   end
 
   # GET /sections/new

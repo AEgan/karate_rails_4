@@ -10,9 +10,11 @@
 		</thead>
 		<tbody>
 			<% @registrations.each do |registration| %>
-				<td><%= link_to "#{registration.student.name}", student_path(registration.student) %></td>
-				<td><%= registration.student.age %></td>
-				<td><%= rank_name(registration.student.rank) %></td>
+				<tr>
+					<td><%= link_to "#{registration.student.name}", student_path(registration.student) %></td>
+					<td><%= registration.student.age %></td>
+					<td><%= rank_name(registration.student.rank) %></td>
+				</tr>
 			<% end %>
 		</tbody>
 	</table>

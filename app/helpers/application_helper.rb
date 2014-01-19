@@ -70,4 +70,15 @@ module ApplicationHelper
 	def format_date(date)
 		"#{date.month}-#{date.day}-#{date.year}"
 	end
+
+	# eligable unregistered students
+	def eligable_students_for_section(section)
+		opts = Array.new
+		Student.ranks_between(section.min_rank, section.max_rank).ages_between(section.min_age, section.max_age).active.each do |stud|
+			if Registration.for_section(section.id).for_student(stud.id).empty?
+				opts << ["#{stud.name}", stud.id]
+			end
+		end
+		opts
+	end
 end

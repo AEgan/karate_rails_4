@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+	$('#registration_student_id').change(function()  {
+		$('#new_registration').submit();
+	});
+});
