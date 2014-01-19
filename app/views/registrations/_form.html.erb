@@ -13,17 +13,13 @@
 
   <div class="field">
     <%= f.label :section_id %><br>
-    <%= f.number_field :section_id %>
+    <%= f.select(:section_id, @section_options, prompt: "Please Select...") %>
   </div>
   <div class="field">
     <%= f.label :student_id %><br>
-    <%= f.number_field :student_id %>
-  </div>
-  <div class="field">
-    <%= f.label :date %><br>
-    <%= f.date_select :date %>
+    <%= f.collection_select :student_id, Student.alphabetical.active, :id, :name, prompt: "Select Student..." %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit nil, class: "button success"%>
   </div>
 <% end %>
