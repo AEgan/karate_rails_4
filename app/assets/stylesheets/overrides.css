@@ -47,3 +47,15 @@ a.success {
 #student_date_of_birth_1i, #student_date_of_birth_2i, #student_date_of_birth_3i, #student_rank {
 	width: 50%;
 }
+
+#notice {
+	text-align: center;
+	background-color: #43ac6a;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	border-color: #3a945b;
+	color: #FFFFFF;
+	border-radius: 3px;
+	margin-right: 0.5%;
+	margin-left: 0.5%;
+}
