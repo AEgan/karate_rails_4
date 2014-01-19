@@ -21,7 +21,7 @@
         <tbody>
           <% @active_students.each do |student| %>
             <tr>
-              <td><%= student.name %></td>
+              <td><%= link_to student.name, student %></td>
               <td><%= format_date(student.date_of_birth) %></td>
               <td><%= rank_name(student.rank) %></td>
               <td><%= format_phone(student.phone) %></td>
@@ -35,7 +35,7 @@
       </table>
     <% end %>
   </div>
-  <div class="small-12 large-4">
+  <div class="small-12 large-4 columns">
     <%= render 'inactive_students' %>
   </div>
 </div>
