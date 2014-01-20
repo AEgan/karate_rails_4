@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="small-12 large-8 columns">
+  <div class="small-7 columns">
     <h1>Active Students</h1>
     <% if @active_students.empty? %>
       <b>There are currently no active students in the system</b>
@@ -35,7 +35,10 @@
       </table>
     <% end %>
   </div>
-  <div class="small-12 large-4 columns">
+  <div class="small-1 columns">
+    &nbsp;
+  </div>
+  <div class="small-3 columns">
     <%= render 'inactive_students' %>
   </div>
 </div>
