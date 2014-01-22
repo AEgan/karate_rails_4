@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dojo.name %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @dojo.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @dojo.state %>
+</p>
+
+<p>
+  <strong>Street:</strong>
+  <%= @dojo.street %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @dojo.zip %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @dojo.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @dojo.longitude %>
+</p>
+
+<p>
+  <strong>Active:</strong>
+  <%= @dojo.active %>
+</p>
+
+<%= link_to 'Edit', edit_dojo_path(@dojo) %> |
+<%= link_to 'Back', dojos_path %>

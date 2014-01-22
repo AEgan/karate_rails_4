@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140108210125) do
+ActiveRecord::Schema.define(version: 20140122021518) do
+
+  create_table "dojos", force: true do |t|
+    t.string   "name"
+    t.string   "city"
+    t.string   "state"
+    t.string   "street"
+    t.string   "zip"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "events", force: true do |t|
     t.string   "name"

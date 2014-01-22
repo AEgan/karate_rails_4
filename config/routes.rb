@@ -1,4 +1,6 @@
 KarateRails4::Application.routes.draw do
+  resources :dojos
+
   get "home/index"
   get "home/search"
   get "home/about"

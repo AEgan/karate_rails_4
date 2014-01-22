@@ -1,0 +1,41 @@
+<h1>Listing dojos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Street</th>
+      <th>Zip</th>
+      <th>Latitude</th>
+      <th>Longitude</th>
+      <th>Active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dojos.each do |dojo| %>
+      <tr>
+        <td><%= dojo.name %></td>
+        <td><%= dojo.city %></td>
+        <td><%= dojo.state %></td>
+        <td><%= dojo.street %></td>
+        <td><%= dojo.zip %></td>
+        <td><%= dojo.latitude %></td>
+        <td><%= dojo.longitude %></td>
+        <td><%= dojo.active %></td>
+        <td><%= link_to 'Show', dojo %></td>
+        <td><%= link_to 'Edit', edit_dojo_path(dojo) %></td>
+        <td><%= link_to 'Destroy', dojo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dojo', new_dojo_path %>
