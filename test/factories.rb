@@ -31,4 +31,14 @@ FactoryGirl.define do
 		association :student
 		date 1.year.ago.to_date
 	end
+
+	# dojo factory
+	factory :dojo do
+	    name "CMU"
+	    street "5000 Forbes Avenue"
+	    city "Pittsburgh"
+	    state "PA"
+	    zip "15213"
+	    active true
+	  end
 end

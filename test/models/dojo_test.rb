@@ -34,6 +34,50 @@ class DojoTest < ActiveSupport::TestCase
   should allow_value(false).for(:active)
   should_not allow_value(nil).for(:active)
 
+  context "Creating context to test dojos " do
+	# set it up
+	setup do
+		@cmu = FactoryGirl.create(:dojo)
+		@sjp = FactoryGirl.create(:dojo, name: "SJP", street: "1733 West Girard Ave", state: "PA", city: "Philadelphia", zip: "12345")
+		@nsa = FactoryGirl.create(:dojo, name: "NSA", street: "555 Secret Lane", state: "MD", city: "Someville", zip: "11111", active: false)
+	end
+
+	# tear it down
+	teardown do
+		@cmu.destroy
+		@sjp.destroy
+		@nsa.destroy
+	end 
+
+	# tests that factories are working correctly
+	should "have working factories for testing" do
+		assert_equal "CMU", @cmu.name
+		assert_equal "SJP", @sjp.name
+		assert_equal "NSA", @nsa.name
+	end
+
+	# scopes
+	# alphabetical
+	should "have a scope to order dojos alphabetically" do
+		assert_equal ["CMU", "NSA", "SJP"], Dojo.alphabetical.map { |dojo| dojo.name }
+	end
+
+	# active
+	should "have a scope to return only active dojos" do
+		active_results = Dojo.active
+		assert_equal 2, active_results.size
+		assert active_results.include?(@cmu)
+		assert active_results.include?(@sjp)
+		deny active_results.include?(@nsa)
+	end
+
+	# inactive
+	should "have a scope to return only inactive dojos" do
+		assert_equal [@nsa.name], Dojo.inactive.map { |dojo| dojo.name }
+	end
+
+  end
+
 
 
 
