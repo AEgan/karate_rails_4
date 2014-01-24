@@ -3,7 +3,8 @@ require 'test_helper'
 class DojoTest < ActiveSupport::TestCase
   
   # relationships
-  # will be added when dojo_students is added
+  should have_many(:dojo_students)
+  should have_many(:students).through(:dojo_students)
 
   # validations
   # presence

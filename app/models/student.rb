@@ -4,6 +4,8 @@ class Student < ActiveRecord::Base
 	# relationships
 	has_many :registrations
 	has_many :sections, through: :registrations
+	has_many :dojo_students
+	has_many :dojos, through: :dojo_students
 
 	# validations
 	validates_presence_of :first_name, :last_name, :date_of_birth

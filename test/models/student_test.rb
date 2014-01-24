@@ -9,6 +9,8 @@ class StudentTest < ActiveSupport::TestCase
   # relationships
   should have_many(:registrations)
   should have_many(:sections).through(:registrations)
+  should have_many(:dojo_students)
+  should have_many(:dojos).through(:dojo_students)
 
   # data format
   should validate_presence_of(:first_name)
