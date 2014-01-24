@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_id: 1
+  dojo_id: 1
+  start_date: 2014-01-23
+  end_date: 2014-01-23
+
+two:
+  student_id: 1
+  dojo_id: 1
+  start_date: 2014-01-23
+  end_date: 2014-01-23

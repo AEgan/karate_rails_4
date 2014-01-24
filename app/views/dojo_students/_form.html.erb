@@ -1,0 +1,33 @@
+<%= form_for(@dojo_student) do |f| %>
+  <% if @dojo_student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dojo_student.errors.count, "error") %> prohibited this dojo_student from being saved:</h2>
+
+      <ul>
+      <% @dojo_student.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :student_id %><br>
+    <%= f.number_field :student_id %>
+  </div>
+  <div class="field">
+    <%= f.label :dojo_id %><br>
+    <%= f.number_field :dojo_id %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

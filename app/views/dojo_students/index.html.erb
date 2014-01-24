@@ -1,0 +1,33 @@
+<h1>Listing dojo_students</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Dojo</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dojo_students.each do |dojo_student| %>
+      <tr>
+        <td><%= dojo_student.student_id %></td>
+        <td><%= dojo_student.dojo_id %></td>
+        <td><%= dojo_student.start_date %></td>
+        <td><%= dojo_student.end_date %></td>
+        <td><%= link_to 'Show', dojo_student %></td>
+        <td><%= link_to 'Edit', edit_dojo_student_path(dojo_student) %></td>
+        <td><%= link_to 'Destroy', dojo_student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dojo student', new_dojo_student_path %>

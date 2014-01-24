@@ -1,4 +1,6 @@
 KarateRails4::Application.routes.draw do
+  resources :dojo_students
+
   resources :dojos
 
   get "home/index"
