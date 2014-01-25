@@ -1,4 +1,6 @@
 KarateRails4::Application.routes.draw do
+  resources :users
+
   resources :dojo_students
 
   resources :dojos

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140124040331) do
+ActiveRecord::Schema.define(version: 20140125204714) do
 
   create_table "dojo_students", force: true do |t|
     t.integer  "student_id"
@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 20140124040331) do
     t.boolean  "waiver_signed"
     t.boolean  "active"
     t.date     "date_of_birth"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "role"
+    t.integer  "student_id"
+    t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
