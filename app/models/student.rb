@@ -6,6 +6,7 @@ class Student < ActiveRecord::Base
 	has_many :sections, through: :registrations
 	has_many :dojo_students
 	has_many :dojos, through: :dojo_students
+	has_one :user
 
 	# validations
 	validates_presence_of :first_name, :last_name, :date_of_birth
