@@ -38,11 +38,11 @@ class DojoStudentTest < ActiveSupport::TestCase
   		@cmu = FactoryGirl.create(:dojo)
       @sjp = FactoryGirl.create(:dojo, name: "SJP", street: "1733 West Girard Ave", city: "Philadelphia", state: "PA", zip: "19130")
       # dojo_students
-      @alex_cmu = FactoryGirl.create(:dojo_student, student: @alex, dojo: @cmu, start_date: 6.months.ago.to_date)
-      @ryan_cmu = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @cmu)
       @alex_sjp = FactoryGirl.create(:dojo_student, student: @alex, dojo: @sjp, start_date: 2.years.ago.to_date, end_date: 1.year.ago.to_date)
       @ryan_sjp = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @sjp, start_date: 2.years.ago.to_date, end_date: 15.months.ago.to_date)
       @john_sjp = FactoryGirl.create(:dojo_student, student: @john, dojo: @sjp, start_date: 4.years.ago.to_date)
+      @alex_cmu = FactoryGirl.create(:dojo_student, student: @alex, dojo: @cmu, start_date: 6.months.ago.to_date)
+      @ryan_cmu = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @cmu)
   	end
 
   	# tear it down
@@ -165,14 +165,14 @@ class DojoStudentTest < ActiveSupport::TestCase
 
     # callbacks
     # end assignment
-    # should "end a dojo student assignment when a new one is created for the same student" do
-    #   assert @john_sjp.end_date.nil?
-    #   johns_new_assignment = FactoryGirl.create(:dojo_student, student: @john, dojo: @sjp, start_date: Date.today)
-    #   # have to reload from the DB...
-    #   @john_sjp.reload
-    #   deny @john_sjp.end_date.nil?
-    #   johns_new_assignment.destroy
-    # end
+    should "end a dojo student assignment when a new one is created for the same student" do
+      assert @john_sjp.end_date.nil?
+      johns_new_assignment = FactoryGirl.create(:dojo_student, student: @john, dojo: @sjp, start_date: Date.today)
+      # have to reload from the DB...
+      @john_sjp.reload
+      deny @john_sjp.end_date.nil?
+      johns_new_assignment.destroy
+    end
 
 
   end
