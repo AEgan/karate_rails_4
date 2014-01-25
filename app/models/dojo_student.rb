@@ -20,7 +20,7 @@ class DojoStudent < ActiveRecord::Base
 	scope :by_student, -> { joins(:student).order('last_name, first_name') }
 	scope :chronological, -> { order('start_date DESC, end_date DESC') }
 	scope :for_student, ->(sID) { where('student_id = ?', sID) }
-	scope :by_dojo, ->(dID) { where('dojo_id = ?', dID) }
+	scope :for_dojo, ->(dID) { where('dojo_id = ?', dID) }
 
 	private
 	# custom validation to make sure the dojo is active in the system

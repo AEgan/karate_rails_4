@@ -40,5 +40,14 @@ FactoryGirl.define do
 	    state "PA"
 	    zip "15213"
 	    active true
-	  end
+	end
+
+	# dojo student factory
+	factory :dojo_student do
+		association :student
+		association :dojo
+		start_date 1.year.ago.to_date
+		end_date nil
+	end
+
 end
