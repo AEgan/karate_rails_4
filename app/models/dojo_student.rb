@@ -14,6 +14,9 @@ class DojoStudent < ActiveRecord::Base
 	validate :dojo_is_active_in_system
 	validate :student_is_active_in_system
 
+	# callbacks
+	# before_create :end_previous_assignment
+
 	# scopes
 	scope :current, -> { where('end_date IS NULL') }
 	scope :by_dojo, -> { joins(:dojo).order('name') }
@@ -23,6 +26,20 @@ class DojoStudent < ActiveRecord::Base
 	scope :for_dojo, ->(dID) { where('dojo_id = ?', dID) }
 
 	private
+	# def end_previous_assignment
+	#     # A few definitions
+	#     new_start = self.start_date.to_date
+	#     student = Student.find(self.student_id)
+	#     # Does student currently have a dojo? If so, skip...
+	#     current_dojo = student.current_dojo
+	#     if current_dojo.nil?
+	#       return true 
+	#     else
+	#       # find last assignment and end it as of the new start date
+	#       was_assigned = student.dojo_students.select{|ds| ds.end_date.nil?}
+	#       was_assigned.first.update_attribute(:end_date, new_start)
+	#     end
+	#   end
 	# custom validation to make sure the dojo is active in the system
 	def dojo_is_active_in_system
 		active_dojo_ids = Dojo.active.map { |dojo| dojo.id }

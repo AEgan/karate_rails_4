@@ -38,8 +38,8 @@ class DojoStudentTest < ActiveSupport::TestCase
   		@cmu = FactoryGirl.create(:dojo)
       @sjp = FactoryGirl.create(:dojo, name: "SJP", street: "1733 West Girard Ave", city: "Philadelphia", state: "PA", zip: "19130")
       # dojo_students
-  		@alex_cmu = FactoryGirl.create(:dojo_student, student: @alex, dojo: @cmu, start_date: 6.months.ago.to_date)
-  		@ryan_cmu = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @cmu)
+      @alex_cmu = FactoryGirl.create(:dojo_student, student: @alex, dojo: @cmu, start_date: 6.months.ago.to_date)
+      @ryan_cmu = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @cmu)
       @alex_sjp = FactoryGirl.create(:dojo_student, student: @alex, dojo: @sjp, start_date: 2.years.ago.to_date, end_date: 1.year.ago.to_date)
       @ryan_sjp = FactoryGirl.create(:dojo_student, student: @ryan, dojo: @sjp, start_date: 2.years.ago.to_date, end_date: 15.months.ago.to_date)
       @john_sjp = FactoryGirl.create(:dojo_student, student: @john, dojo: @sjp, start_date: 4.years.ago.to_date)
@@ -135,6 +135,46 @@ class DojoStudentTest < ActiveSupport::TestCase
       records = DojoStudent.chronological.map { |ds| ds.id }
       assert_equal [@alex_cmu.id, @ryan_cmu.id, @alex_sjp.id, @ryan_sjp.id, @john_sjp.id], records
     end
+
+    # validations
+    # inactive student
+    should "not allow an inactive student to be assigned to a dojo " do
+      inactive_student = FactoryGirl.create(:student, first_name: "Inactive", last_name: "Student", phone: "5553334444", active: false)
+      bad_record = FactoryGirl.build(:dojo_student, dojo: @cmu, student: inactive_student)
+      deny bad_record.valid?
+    end
+
+    # inactive dojo
+    should "not allow an inactive dojo to accept new students " do
+      inactive_dojo = FactoryGirl.create(:dojo, name: "Inactive", active: false, street: "123 Main Street", city: "New York", state: "NY", zip: "10002")
+      bad_record = FactoryGirl.build(:dojo_student, dojo: inactive_dojo, student: @john)
+      deny bad_record.valid?
+    end
+
+    # end date before start date
+    should "not allow the end date to be before the start date " do
+      strange_dates = FactoryGirl.build(:dojo_student, student: @alex, dojo: @cmu, start_date: 4.years.ago.to_date, end_date: 5.years.ago.to_date)
+      deny strange_dates.valid?
+    end
+
+    # end date in future
+    should "not allow end dates in the future " do
+      strange_dates_2 = FactoryGirl.build(:dojo_student, student: @alex, dojo: @sjp, start_date: 1.year.ago.to_date, end_date: Date.tomorrow)
+      deny strange_dates_2.valid?
+    end
+
+    # callbacks
+    # end assignment
+    # should "end a dojo student assignment when a new one is created for the same student" do
+    #   assert @john_sjp.end_date.nil?
+    #   johns_new_assignment = FactoryGirl.create(:dojo_student, student: @john, dojo: @sjp, start_date: Date.today)
+    #   # have to reload from the DB...
+    #   @john_sjp.reload
+    #   deny @john_sjp.end_date.nil?
+    #   johns_new_assignment.destroy
+    # end
+
+
   end
 
 end
