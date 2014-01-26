@@ -50,4 +50,15 @@ FactoryGirl.define do
 		end_date nil
 	end
 
+	# user factory
+	factory :user do
+		association :student
+		email "alex@example.com"
+		role "member"
+		password "secret"
+		password_confirmation "secret"
+		active true
+	end
+
+
 end

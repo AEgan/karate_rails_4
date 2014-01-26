@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 	belongs_to :student
 
 	validates_uniqueness_of :email, case_sensitive: false, allow_blank: false
+	validates_presence_of :password, on: :create
 	validates_format_of :email, with: /\A[\w]([^@\s,;]+)@(([\w-]+\.)+(com|edu|org|net|gov|mil|biz|info))\z/i, message: "is not a valid format"
 	validates_inclusion_of :active, in: [true, false], message: "must be true or false"
 	validates_inclusion_of :role, in: %w[admin member], message: "not recognized by the system"

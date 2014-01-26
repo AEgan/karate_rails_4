@@ -11,6 +11,7 @@ class StudentTest < ActiveSupport::TestCase
   should have_many(:sections).through(:registrations)
   should have_many(:dojo_students)
   should have_many(:dojos).through(:dojo_students)
+  should have_one(:user)
 
   # data format
   should validate_presence_of(:first_name)
