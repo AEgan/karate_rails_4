@@ -1,0 +1,35 @@
+<h1>Listing tournaments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Date</th>
+      <th>Min rank</th>
+      <th>Max rank</th>
+      <th>Active</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tournaments.each do |tournament| %>
+      <tr>
+        <td><%= tournament.name %></td>
+        <td><%= tournament.date %></td>
+        <td><%= tournament.min_rank %></td>
+        <td><%= tournament.max_rank %></td>
+        <td><%= tournament.active %></td>
+        <td><%= link_to 'Show', tournament %></td>
+        <td><%= link_to 'Edit', edit_tournament_path(tournament) %></td>
+        <td><%= link_to 'Destroy', tournament, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tournament', new_tournament_path %>
