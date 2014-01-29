@@ -7,7 +7,7 @@ class Tournament < ActiveRecord::Base
 
 	# validations
 	validates_presence_of :name
-	validates_date :date, on_or_after: Date.today, on_or_before_message: "Date cannot be in the future", on: :create
+	validates_date :date, on_or_after: Date.today, on_or_before_message: "Date must be in the future", on: :create
 	validates_numericality_of :min_rank, only_integer: true, greater_than: 0
 	validates_numericality_of :max_rank, only_integer: true, greater_than: :min_rank, allow_blank: true
 	validates_inclusion_of :active, in: [true, false], message: "Must be true or false"

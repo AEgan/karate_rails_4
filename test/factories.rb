@@ -60,5 +60,13 @@ FactoryGirl.define do
 		active true
 	end
 
+	# tournament factory
+	factory :tournament do
+		name "Grand Finals"
+		date 3.weeks.from_now.to_date
+		min_rank 1
+		max_rank 15
+		active true
+	end
 
 end
