@@ -47,10 +47,12 @@ class RegistrationTest < ActiveSupport::TestCase
   		# events
   		@breaking = FactoryGirl.create(:event)
   		@forms = FactoryGirl.create(:event, name: "Forms")
+      # tournament
+      @grand_finals = FactoryGirl.create(:tournament)
   		# sections
-  		@low_breaking = FactoryGirl.create(:section, event: @breaking, max_rank: 4, max_age: 10)
-  		@high_breaking = FactoryGirl.create(:section, event: @breaking, min_rank: 10, min_age: 18)
-  		@full_forms = FactoryGirl.create(:section, event: @forms)
+  		@low_breaking = FactoryGirl.create(:section, event: @breaking, max_rank: 4, max_age: 10, tournament: @grand_finals)
+  		@high_breaking = FactoryGirl.create(:section, event: @breaking, min_rank: 10, min_age: 18, tournament: @grand_finals)
+  		@full_forms = FactoryGirl.create(:section, event: @forms, tournament: @grand_finals)
   		# students
   		@alex = FactoryGirl.create(:student)
   		@ryan = FactoryGirl.create(:student, first_name: "Ryan", rank: 2, date_of_birth: 7.years.ago.to_date)
@@ -69,6 +71,7 @@ class RegistrationTest < ActiveSupport::TestCase
   		@low_breaking.destroy
   		@high_breaking.destroy
   		@full_forms.destroy
+      @grand_finals.destroy
   		@alex.destroy
   		@ryan.destroy
   		@kyle.destroy
@@ -83,6 +86,7 @@ class RegistrationTest < ActiveSupport::TestCase
   	should "have working factories for testing" do
   		assert_equal @breaking.name, "Breaking"
   		assert_equal @forms.name, "Forms"
+      assert_equal @grand_finals.name, "Grand Finals"
   		assert_equal @breaking.id, @low_breaking.event_id
   		assert_equal @breaking.id, @high_breaking.event_id
   		assert_equal @forms.id, @full_forms.event_id

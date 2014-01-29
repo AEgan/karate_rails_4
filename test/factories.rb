@@ -20,6 +20,9 @@ FactoryGirl.define do
 	# section factory
 	factory :section do
 		association :event
+		association :tournament
+		location "front"
+		round_time Time.local(2000,1,1,11,0,0)
 		min_age 5
 		min_rank 1
 		active true
