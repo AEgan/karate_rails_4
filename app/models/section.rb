@@ -11,6 +11,7 @@ class Section < ActiveRecord::Base
 	validate :active_event
 	validates_presence_of :event_id, :min_age, :min_rank
 	validates_numericality_of :event_id, only_integer: true, greater_than_or_equal_to: 1
+	validates_numericality_of :tournament_id, only_integer: true, greater_than_or_equal_to: 1
 	validates_numericality_of :min_age, only_integer: true, greater_than_or_equal_to: 5
 	validates_numericality_of :min_rank, only_integer: true, greater_than_or_equal_to: 1
 	validates_numericality_of :max_age, allow_blank: true, only_integer: true, greater_than_or_equal_to: :min_age
@@ -24,7 +25,10 @@ class Section < ActiveRecord::Base
 	scope :alphabetical, -> { joins(:event).order("events.name, sections.min_rank, sections.min_age") }
 	scope :for_rank, ->(rank) { where("min_rank <= ? AND (max_rank IS NULL OR ? <= max_rank)", rank, rank) }
 	scope :for_age, ->(age) { where("min_age <= ? AND (max_age IS NULL OR ? <= max_age)", age, age) }
-
+	scope :by_location, -> { order('location') }
+	scope :for_location, ->(loc) { where('location LIKE ?', "%#{loc}%") }
+	scope :for_tournament, ->(tid) { where('tournament_id = ?', tid) }
+	
 	# custom validations
 	private
 
