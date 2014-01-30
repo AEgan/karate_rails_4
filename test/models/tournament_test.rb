@@ -29,7 +29,7 @@ class TournamentTest < ActiveSupport::TestCase
   should_not allow_value("bad").for(:date)
   should_not allow_value(2).for(:date)
   should_not allow_value(3.14159).for(:date)
-  should_not allow_value(1.day.ago.to_date).for(:date)
+  should_not allow_value(Date.today - 1.day).for(:date)
   # active
   should allow_value(true).for(:active)
   should allow_value(false).for(:active)

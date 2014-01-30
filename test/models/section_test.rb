@@ -38,11 +38,11 @@ class SectionTest < ActiveSupport::TestCase
       @semi_finals = FactoryGirl.create(:tournament, name: "Semi finals", date: 1.week.from_now.to_date)
   		# sections
   		@full_breaking = FactoryGirl.create(:section, event: @breaking, tournament: @grand_finals)
-  		@full_forms = FactoryGirl.create(:section, event: @forms, tournament: @grand_finals)
-  		@low_breaking = FactoryGirl.create(:section, event: @breaking, min_rank: 2, max_rank: 3, min_age: 6, max_age: 8, tournament: @semi_finals)
-  		@mid_forms = FactoryGirl.create(:section, event: @forms, min_age: 12, max_age: 15, min_rank: 7, max_rank: 9, tournament: @semi_finals)
-  		@high_breaking = FactoryGirl.create(:section, event: @breaking, min_age: 18, max_age: 24, min_rank: 12, max_rank: 15, active: false, tournament: @semi_finals)
-  		@old_forms = FactoryGirl.create(:section, event: @forms, min_rank: 7, min_age: 15, active: false, tournament: @semi_finals)
+  		@full_forms = FactoryGirl.create(:section, event: @forms, tournament: @grand_finals, location: "back")
+  		@low_breaking = FactoryGirl.create(:section, event: @breaking, min_rank: 2, max_rank: 3, min_age: 6, max_age: 8, tournament: @semi_finals, location: "left")
+  		@mid_forms = FactoryGirl.create(:section, event: @forms, min_age: 12, max_age: 15, min_rank: 7, max_rank: 9, tournament: @semi_finals, location: "right")
+  		@high_breaking = FactoryGirl.create(:section, event: @breaking, min_age: 18, max_age: 24, min_rank: 12, max_rank: 15, active: false, tournament: @semi_finals, location: "center")
+  		@old_forms = FactoryGirl.create(:section, event: @forms, min_rank: 7, min_age: 15, active: false, tournament: @semi_finals, location: "top")
   	end
 
   	# teard it down
@@ -148,6 +148,31 @@ class SectionTest < ActiveSupport::TestCase
   		assert age_18_sections.include?(@high_breaking)
   		assert age_18_sections.include?(@old_forms)
   	end
+
+    # for tournament
+    should "have a scope to get sections by tournament " do
+      final_sections = Section.for_tournament(@grand_finals.id)
+      semi_sections = Section.for_tournament(@semi_finals.id)
+      assert_equal 2, final_sections.size
+      assert_equal 4, semi_sections.size
+      assert final_sections.include?(@full_forms)
+      assert final_sections.include?(@full_breaking)
+      assert semi_sections.include?(@low_breaking)
+      assert semi_sections.include?(@high_breaking)
+      assert semi_sections.include?(@mid_forms)
+      assert semi_sections.include?(@old_forms)
+    end
+
+    # by location
+    should "have a scope to order sections by location" do
+      assert_equal ["back", "center", "front", "left", "right", "top"], Section.by_location.map { |sect| sect.location }
+    end
+
+    # for location
+    should "have a scope to get sections for a location" do
+      assert_equal [@full_breaking], Section.for_location("front")
+      assert_equal [@full_forms], Section.for_location("back")
+    end
 
     # custom validations
     # event active in system
@@ -269,6 +294,14 @@ class SectionTest < ActiveSupport::TestCase
       deny blank_id.valid?
       deny nil_id.valid?
       deny string_id.valid?
+    end
+
+    # inactive tournament shouldn't have a section in it
+    should "not allow a section to be created for an inactive tournament " do
+      inactive_tournament = FactoryGirl.create(:tournament, name: "Inactive", date: 1.year.from_now.to_date, active: false)
+      bad_section = FactoryGirl.build(:section, event: @breaking, tournament: inactive_tournament)
+      deny bad_section.valid?
+      inactive_tournament.destroy
     end
   end
 end
