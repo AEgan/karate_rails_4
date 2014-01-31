@@ -261,6 +261,16 @@ class StudentTest < ActiveSupport::TestCase
    		assert_equal [@alex], rank_result2
    	end
 
+    # current dojo
+    should "have a method that returns the student's current dojo" do
+      the_dojo = FactoryGirl.create(:dojo)
+      the_dojo_student = FactoryGirl.create(:dojo_student, student: @alex, dojo: the_dojo, end_date: nil)
+      assert_equal the_dojo, @alex.current_dojo
+      assert @ryan.current_dojo.nil?
+      the_dojo.destroy
+      the_dojo_student.destroy
+    end
+
    	# tests some validations and creation callbacks
    	# reformatted phone
    	should "reformat phone when a new student is created to only include the numbers" do

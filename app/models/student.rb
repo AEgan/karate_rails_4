@@ -44,6 +44,13 @@ class Student < ActiveRecord::Base
 		self.date_of_birth <= Date.today - 18.years
 	end
 
+	# gets the dojo the student is currently in
+	def current_dojo
+		dojo_students = self.dojo_students.select{|ds| ds.end_date.nil?}
+		return nil if dojo_students.empty?
+		dojo_students.first.dojo
+	end
+
 	# Returns the student's age
   def age
     now = Time.now.utc.to_date
